@@ -1,0 +1,12 @@
+    server {
+    listen 80;
+    server_name site1.com;
+    root /var/www/site1.com/html;
+}
+
+server {
+    listen 8080;
+    server_name site2.com;
+    root /var/www/site2.com/html;
+}
+

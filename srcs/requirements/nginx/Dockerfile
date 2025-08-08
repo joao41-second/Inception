@@ -7,3 +7,4 @@ RUN apt-get -y install nginx
 COPY ./tools/ /etc/
 CMD ["nginx","-g","daemon off;"]
 EXPOSE 443
+EXPOSE 80
