@@ -2,13 +2,11 @@
 
 FROM debian:unstable-slim
 
-WORKDIR /home
-
+WORKDIR /homej
 COPY . .
 RUN apt-get update
 RUN apt-get -y install mariadb-server
-RUN systemctl start mariadb
-RUN systemctl enable mariadb
+RUN systemctl enable mariadb.service
+RUN systemctl start mariadb.service
 RUN ls
-#RUN chmod +x start.sh
 CMD ["ls","-l"]

@@ -2,8 +2,8 @@
 
 FROM debian:unstable-slim
 WORKDIR /home
-COPY . .
 RUN apt-get update
 RUN apt-get -y install nginx
-CMD ["ls","-l"]
-CMD ["nginx","-v"]
+COPY ./tools/ /etc/
+CMD ["nginx","-g","daemon off;"]
+EXPOSE 443
