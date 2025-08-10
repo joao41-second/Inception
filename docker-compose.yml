@@ -6,8 +6,9 @@ services:
   mariadb:
     build: ./srcs/requirements/mariadb/
     env_file:
-      - .env 
+      - .env  
+    volumes:
+      - ./srcs/requirements/mariadb/tools/:/var/li/mysql 
     ports:
       - 3306:3306
-  
 
