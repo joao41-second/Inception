@@ -1,15 +1,16 @@
-# syntax=docker/dockerfile:1
-
 FROM debian:unstable-slim
 
-WORKDIR /home
-COPY . .
-RUN apt-get update
-RUN apt-get -y install mariadb-server
-RUN ls
-RUN mkdir -p /run/mysqld
-RUN chown mysql:mysql /run/mysqld
+RUN apt-get update && apt-get install -y mariadb-server mariadb-client \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /run/mysqld \
+    && chown -R mysql:mysql /run/mysqld /var/lib/mysql
+
+VOLUME ["/var/lib/mysql"]
+
 EXPOSE 3306
-CMD ["ls","-l"]
-CMD [ "mysqld", "--user=mysql", "--console"]
+
+USER mysql
+
+CMD ["mysqld", "--console"]
 

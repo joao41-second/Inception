@@ -15,8 +15,6 @@ location ~ \.php$ {
         include fastcgi_params;
     }
 
-}
-
 server {
     listen 443;
     server_name site2.com;
