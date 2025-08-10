@@ -1,11 +1,19 @@
     server {
-    listen 80;
-    server_name site1.com;
-    root /var/www/site1.com/html;
+    listen 80 ssl;
+    server_name jperpect.42.fr;
+   
+    ssl_certificate /etc/ssl/certs/jperpect.crt; 
+    ssl_certificate_key  /etc/ssl/private/jperpect.key;
+    ssl_protocols TLSv1.2;
+    ssl_prefer_server_ciphers on;
+    root /var/www/;
+ location / {
+        try_files $uri $uri/ =404;
+    }
 }
 
 server {
-    listen 8080;
+    listen 443;
     server_name site2.com;
     root /var/www/site2.com/html;
 }

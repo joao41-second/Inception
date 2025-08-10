@@ -1,7 +1,0 @@
-services:
-
-	nginx:
-		build: ./requirements/nginx/
-		prots: 
-			- 80:80
-
