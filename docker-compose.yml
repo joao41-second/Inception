@@ -3,4 +3,11 @@ services:
     build: ./srcs/requirements/nginx/ 
     ports:
       - 80:80
+  mariadb:
+    build: ./srcs/requirements/mariadb/
+    env_file:
+      - .env 
+    ports:
+      - 3306:3306
+  
 
