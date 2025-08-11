@@ -7,7 +7,6 @@ services:
       - 80:80
     depends_on:
       - wordpress
-
   mariadb:
     container_name: mariadb
     build: ./srcs/requirements/mariadb/ 
@@ -19,11 +18,11 @@ services:
       - 3306:3306 
   wordpress:
     build: ./srcs/requirements/wordpress/ 
+    container_name: wordp
     volumes:
       - ./srcs/requirements/wordpress/tools/site/:/var/www/html 
     env_file:
       - .env  
-      
-      
+            
     depends_on:
           - mariadb

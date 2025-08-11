@@ -10,6 +10,9 @@ enter_mariadb_db:
 	docker exec -it mariadb mysql -u root -p
 enter_mariadb_docker:
 	docker exec -it mariadb bash
+enter_worpress:
+	docker exec -it wordp bash
+
 clean:
 	docker container prune
 	docker image prune
