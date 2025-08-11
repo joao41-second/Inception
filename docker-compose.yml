@@ -5,13 +5,25 @@ services:
       - ./srcs/requirements/wordpress/tools/site/:/var/www/html
     ports:
       - 80:80
+    depends_on:
+      - wordpress
 
   mariadb:
+    container_name: mariadb
     build: ./srcs/requirements/mariadb/ 
     env_file:
       - .env  
     volumes:
-      - ./srcs/requirements/mariadb/tools/:/var/lib/mysql
+      - ./data/:/var/lib/mysql
     ports:
-      - 3306:3306
-
+      - 3306:3306 
+  wordpress:
+    build: ./srcs/requirements/wordpress/ 
+    volumes:
+      - ./srcs/requirements/wordpress/tools/site/:/var/www/html 
+    env_file:
+      - .env  
+      
+      
+    depends_on:
+          - mariadb

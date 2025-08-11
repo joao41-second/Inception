@@ -6,8 +6,10 @@ d_maria:
 r_maria:
 	docker run  -p 443:443 -p 3306:3306 maria
 
-
-
+enter_mariadb_db:
+	docker exec -it mariadb mysql -u root -p
+enter_mariadb_docker:
+	docker exec -it mariadb bash
 clean:
 	docker container prune
 	docker image prune
