@@ -1,10 +1,9 @@
-FROM debian:unstable-slim
+FROM debian:bullseye
 
 RUN apt-get update && apt-get install -y mariadb-server mariadb-client \
     && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /run/mysqld \
-    && chown -R mysql:mysql /run/mysqld /var/lib/mysql
+COPY conf/server.cnf /etc/mysql/mariadb.conf.d/server.cnf
 
 copy ./tools/config.sh ./config.sh
 
