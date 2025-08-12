@@ -6,10 +6,10 @@ services:
       - ./data/wordpress/:/var/www/html
     ports:
       - 443:443
-    depends_on:
-      - wordpress 
     networks:
       - inception
+    depends_on:
+      - wordpress 
   mariadb:
     container_name: mariadb
     build: ./srcs/requirements/mariadb/ 
@@ -17,8 +17,6 @@ services:
       - .env  
     volumes:
       - ./data/lib/:/var/lib/mysql
-    ports:
-      - 3306:3306 
   wordpress:
     build: ./srcs/requirements/wordpress/ 
     container_name: wordp
@@ -26,8 +24,6 @@ services:
       - ./data/wordpress:/wordpress/
     env_file:
       - .env  
-    ports:
-      - 9000:9000
     networks:
       - inception
     depends_on:

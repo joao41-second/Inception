@@ -14,4 +14,3 @@ COPY ./tools/default /etc/nginx/sites-available/default
 CMD ["ls","/etc/ssl/private"]
 CMD ["nginx","-g","daemon off;"]
 EXPOSE 443
-EXPOSE 80
