@@ -1,10 +1,11 @@
 services:
   nginx:
+    container_name: nginx
     build: ./srcs/requirements/nginx/ 
     volumes:
-      - ./srcs/requirements/wordpress/tools/site/:/var/www/html
+      - ./data/wordpress/:/var/www/html
     ports:
-      - 80:80
+      - 443:443
     depends_on:
       - wordpress 
     networks:
@@ -15,14 +16,14 @@ services:
     env_file:
       - .env  
     volumes:
-      - ./data/:/var/lib/mysql
+      - ./data/lib/:/var/lib/mysql
     ports:
       - 3306:3306 
   wordpress:
     build: ./srcs/requirements/wordpress/ 
     container_name: wordp
     volumes:
-      - ./srcs/requirements/wordpress/tools/site/:/var/www/html 
+      - ./data/wordpress:/wordpress/
     env_file:
       - .env  
     ports:

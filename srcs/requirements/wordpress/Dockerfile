@@ -24,7 +24,7 @@ RUN apt-get update && apt-get install -y \
 RUN wget https://wordpress.org/latest.tar.gz
 RUN tar -xzf latest.tar.gz
 workdir /wordpress
-COPY ./conf/config.sh ./config.sh 
+COPY ./conf/config.sh ../config.sh 
 
-ENTRYPOINT ["sh","./config.sh"]
+ENTRYPOINT ["sh","../config.sh"]
 
