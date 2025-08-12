@@ -11,6 +11,10 @@
     index index.php index.html index.htm;
         location / {
             proxy_pass http://wordpress:9000;
+	    proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;  # Passa o IP real do cliente
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;  # Para logs de IP
+            proxy_set_header X-Forwarded-Proto $scheme;  # Informa se a requisição é HTTP/HTTPSkk
         }
 
 }
