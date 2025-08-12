@@ -6,7 +6,9 @@ services:
     ports:
       - 80:80
     depends_on:
-      - wordpress
+      - wordpress 
+    networks:
+      - inception
   mariadb:
     container_name: mariadb
     build: ./srcs/requirements/mariadb/ 
@@ -23,6 +25,12 @@ services:
       - ./srcs/requirements/wordpress/tools/site/:/var/www/html 
     env_file:
       - .env  
-            
+    ports:
+      - 9000:9000
+    networks:
+      - inception
     depends_on:
           - mariadb
+networks:
+  inception:
+    driver: bridge

@@ -1,24 +1,30 @@
 # syntax=docker/dockerfile:1
 FROM debian:bullseye
 
+
 RUN apt-get update && apt-get install -y \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libzip-dev \
-    zip \
-    unzip \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd mysqli zip pdo pdo_mysql
+    php7.4-fpm \
+    php7.4-mysql \
+    php7.4-mysqli \
+    php7.4-curl \
+    php7.4-gd \
+    php7.4-intl \
+    php7.4-mbstring \
+    php7.4-xml \
+    php7.4-zip \
+    php7.4-bcmath \
+    php7.4-json \
+    php7.4-opcache \
+    wget \
+    curl \
+    mariadb-client \
+    && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /var/www/html
-RUN curl -o wordpress.tar.gz https://wordpress.org/latest.tar.gz \
-    && tar -xzf wordpress.tar.gz --strip-components=1 \
-    && rm wordpress.tar.gz
 
-COPY ./conf/config.sh ./config.sh
-RUN chown -R www-data:www-data /var/www/html
+RUN wget https://wordpress.org/latest.tar.gz
+RUN tar -xzf latest.tar.gz
+workdir /wordpress
+COPY ./conf/config.sh ./config.sh 
 
-EXPOSE 9000
 ENTRYPOINT ["sh","./config.sh"]
 

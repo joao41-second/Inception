@@ -8,18 +8,9 @@
     ssl_prefer_server_ciphers on;
     root /var/www/html/;
     index index.php index.html index.htm;
-location ~ \.php$ {
-        include snippets/fastcgi-php.conf;
-        fastcgi_pass wordpress:8080;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        include fastcgi_params;
-    }
+  
 
 }
 
-server {
-    listen 443;
-    server_name site2.com;
-    root /var/www/site2.com/html;
-}
+
 
