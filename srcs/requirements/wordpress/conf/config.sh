@@ -30,6 +30,32 @@ echo create the config wordpress...
         --dbhost=mariadb \
         --allow-root
 
+echo "Installing WordPress..."
+    wp core install \
+        --url=$DOMAIN_NAME \
+        --title="$WP_TITLE" \
+        --admin_user=$WP_ADMIN_USER \
+        --admin_password=$WP_ADMIN_PWD \
+        --admin_email=$WP_ADMIN_EMAIL \
+        --skip-email \
+        --allow-root
+echo "config option"
+
+   wp option update blogdescription "42 School Inception Project" --allow-root
+   wp option update permalink_structure "/%postname%/" --allow-root
+   wp theme install twentytwentyone --activate --allow-root
+echo "php config"
 
 
-exec php -S 0.0.0.0:9000
+echo  "Configurating PHP-FPM..."
+sed -i 's/listen = .*/listen = 9000/' /etc/php/7.4/fpm/pool.d/www.conf
+sed -i 's/;listen.owner = .*/listen.owner = www-data/' /etc/php/7.4/fpm/pool.d/www.conf
+sed -i 's/;listen.group = .*/listen.group = www-data/' /etc/php/7.4/fpm/pool.d/www.conf
+sed -i 's/;listen.mode = .*/listen.mode = 0660/' /etc/php/7.4/fpm/pool.d/www.conf
+
+mkdir -p /run/php && chown www-data:www-data /run/php
+
+echo "start the php"
+exec php-fpm7.4 -F
+
+#exec php -S 0.0.0.0:9000

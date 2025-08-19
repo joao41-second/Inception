@@ -17,6 +17,8 @@ services:
       - .env  
     volumes:
       - ./data/lib/:/var/lib/mysql
+    ports:
+      - 9000:9000
     networks:
       - inception
   wordpress:
