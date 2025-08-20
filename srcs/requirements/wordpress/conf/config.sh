@@ -39,6 +39,14 @@ echo "Installing WordPress..."
         --admin_email=$WP_ADMIN_EMAIL \
         --skip-email \
         --allow-root
+
+echo "add user" 
+   wp user create \
+        $WP_USR $WP_EMAIL \
+        --role=author \
+        --user_pass=$WP_PWD \
+        --allow-root
+
 echo "config option"
 
    wp option update blogdescription "42 School Inception Project" --allow-root

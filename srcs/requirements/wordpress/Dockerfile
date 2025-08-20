@@ -29,8 +29,8 @@ COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
 RUN wget https://wordpress.org/latest.tar.gz
 RUN tar -xzf latest.tar.gz
-workdir /wordpress
+workdir /www/html
 COPY ./conf/config.sh ../config.sh 
-
+EXPOSE 9000
 ENTRYPOINT ["sh","../config.sh"]
 

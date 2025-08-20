@@ -23,9 +23,9 @@ services:
       - inception
   wordpress:
     build: ./srcs/requirements/wordpress/ 
-    container_name: wordp
+    container_name: wordpress
     volumes:
-      - ./data/wordpress:/wordpress/
+      - ./data/wordpress:/var/www/html
     env_file:
       - .env  
     networks:
