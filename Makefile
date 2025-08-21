@@ -16,6 +16,7 @@ enter_worpress:
 	docker exec -it wordpress bash
 
 clean:
+	rm -fr /home/$USER/data
 	docker container prune
 	docker image prune
 	docker system prune

@@ -1,6 +1,6 @@
 server {
     listen 443 ssl;
-    server_name jperpect.42.fr;
+    server_name $DOMAIN_NAME;
 
     ssl_certificate /etc/ssl/certs/jperpect.crt; 
     ssl_certificate_key /etc/ssl/private/jperpect.key;

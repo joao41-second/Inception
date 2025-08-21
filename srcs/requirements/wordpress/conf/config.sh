@@ -5,7 +5,7 @@ chown -R www-data:www-data /wordpress
 chmod -R 755 /wordpress
 tar -xzf latest.tar.gz
 echo estou em "$pwd"
-cd html
+cd ./html
 
 sleep 3
 echo login int mariadb...
@@ -30,9 +30,10 @@ echo create the config wordpress...
         --dbhost=mariadb \
         --allow-root
 
+
 echo "Installing WordPress..."
     wp core install \
-        --url=$DOMAIN_NAME \
+        --url="https://$DOMAIN_NAME" \
         --title="$WP_TITLE" \
         --admin_user=$WP_ADMIN_USER \
         --admin_password=$WP_ADMIN_PWD \
@@ -40,6 +41,8 @@ echo "Installing WordPress..."
         --skip-email \
         --allow-root
 
+	wp config set WP_HOME "https://$DOMAIN_NAME"  --type=constant --allow-root
+	wp config set WP_SITEURL "https://$DOMAIN_NAME"  --type=constant --allow-root
 echo "add user" 
    wp user create \
         $WP_USR $WP_EMAIL \
@@ -52,6 +55,7 @@ echo "config option"
    wp option update blogdescription "42 School Inception Project" --allow-root
    wp option update permalink_structure "/%postname%/" --allow-root
    wp theme install twentytwentyone --activate --allow-root
+
 echo "php config"
 
 
