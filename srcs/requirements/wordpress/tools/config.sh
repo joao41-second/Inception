@@ -1,4 +1,14 @@
 
+set -a
+for secret in /run/secrets/*; do
+  # Se for ficheiro legível, "source" nele
+  if [ -f "$secret" ]; then
+    . "$secret"
+  fi
+done
+set +a
+exec "$@"
+
 cd ..
 wget https://wordpress.org/latest.tar.gz
 chown -R www-data:www-data /wordpress
@@ -8,6 +18,7 @@ echo estou em "$pwd"
 cd ./html
 
 sleep 3
+echo $WP_DATABASE_PWD
 echo login int mariadb...
 if ! mysql -h mariadb -u $WP_DATABASE_USR -p$WP_DATABASE_PWD -e "USE $WP_DATABASE_NAME;" 2>/dev/null; then
    

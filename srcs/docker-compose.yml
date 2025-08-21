@@ -1,7 +1,11 @@
 services:
   nginx:
     container_name: nginx
-    build: ./srcs/requirements/nginx/ 
+    build: ./requirements/nginx/
+    secrets:
+      - config_credentials
+      - config_db
+      - config_db_root
     volumes:
       - /home/$USER/data/wordpress/:/var/www/html
     ports:
@@ -12,18 +16,24 @@ services:
       - wordpress 
   mariadb:
     container_name: mariadb
-    build: ./srcs/requirements/mariadb/ 
+    build: ./requirements/mariadb/ 
+    secrets:
+      - config_credentials
+      - config_db
+      - config_db_root
     env_file:
       - .env  
     volumes:
       - /home/$USER/data/lib/:/var/lib/mysql
-    ports:
-      - 9000:9000
     networks:
       - inception
   wordpress:
-    build: ./srcs/requirements/wordpress/ 
     container_name: wordpress
+    build: ./requirements/wordpress/ 
+    secrets:
+      - config_credentials
+      - config_db
+      - config_db_root
     volumes:
       - /home/$USER/data/wordpress:/var/www/html
     env_file:
@@ -35,3 +45,11 @@ services:
 networks:
   inception:
     driver: bridge
+
+secrets:
+  config_credentials:
+    file: ../secrets/credentials.txt 
+  config_db:
+    file: ../secrets/db_password.txt
+  config_db_root:
+    file: ../secrets/db_rootpassword.txt

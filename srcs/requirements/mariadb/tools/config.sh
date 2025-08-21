@@ -1,11 +1,21 @@
-!/bin/sg
+set -a
+for secret in /run/secrets/*; do
+  # Se for ficheiro legível, "source" nele
+  if [ -f "$secret" ]; then
+    . "$secret"
+  fi
+done
+set +a
+exec "$@"
 
 mkdir -p /var/run/mysqld
 chown -R mysql:mysql /var/run/mysqld
-chown -R mysql:mysql /var/lib/mysql
+chown -R mysql:mysql /var/lib/mysqlJ
+echo "db_var \n\n"
+ls /run/secrets/
 
 	
-	echo "ok"
+echo "start db"
 
  mariadb-install-db \
   --user=mysql \
