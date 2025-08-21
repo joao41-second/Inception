@@ -5,7 +5,7 @@ chown -R www-data:www-data /wordpress
 chmod -R 755 /wordpress
 tar -xzf latest.tar.gz
 echo estou em "$pwd"
-cd wordpress
+cd html
 
 sleep 3
 echo login int mariadb...

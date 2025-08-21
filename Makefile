@@ -13,7 +13,7 @@ enter_mariadb_docker:
 enter_mariadb_nginx:
 	docker exec -it nginx bash
 enter_worpress:
-	docker exec -it wordp bash
+	docker exec -it wordpress bash
 
 clean:
 	docker container prune
