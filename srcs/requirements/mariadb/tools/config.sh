@@ -40,5 +40,17 @@ EOF
 cat $tempfile 
 mysqld --user=mysql --bootstrap --verbose=0 --skip-networking=0 < "$tempfile"
 
+for secret in /run/secrets/*; do
+  if [ -f "$secret" ]; then
+    while IFS='=' read -r key value; do
+      [ -z "$key" ] && continue
+      case "$key" in \#*) continue ;; esac
+      unset "$key"
+    done < "$secret"
+  fi
+done
+
+exec "$@" 
+
 exec mysqld --user=mysql --console
 

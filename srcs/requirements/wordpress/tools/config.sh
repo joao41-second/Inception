@@ -79,6 +79,18 @@ sed -i 's/;listen.mode = .*/listen.mode = 0660/' /etc/php/7.4/fpm/pool.d/www.con
 mkdir -p /run/php && chown www-data:www-data /run/php
 
 echo "start the php"
+
+for secret in /run/secrets/*; do
+  if [ -f "$secret" ]; then
+    while IFS='=' read -r key value; do
+      [ -z "$key" ] && continue
+      case "$key" in \#*) continue ;; esac
+      unset "$key"
+    done < "$secret"
+  fi
+done
+
+exec "$@" 
 exec php-fpm7.4 -F
 
 #exec php -S 0.0.0.0:9000

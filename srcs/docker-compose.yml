@@ -14,6 +14,7 @@ services:
       - inception
     depends_on:
       - wordpress 
+    restart: unless-stopped
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb/ 
@@ -27,6 +28,7 @@ services:
       - /home/$USER/data/lib/:/var/lib/mysql
     networks:
       - inception
+    restart: unless-stopped
   wordpress:
     container_name: wordpress
     build: ./requirements/wordpress/ 
@@ -42,6 +44,7 @@ services:
       - inception
     depends_on:
           - mariadb
+    restart: unless-stopped
 networks:
   inception:
     driver: bridge

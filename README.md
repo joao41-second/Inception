@@ -13,7 +13,6 @@ this was not done :
 
 por o data na pasta /home/$USER/data/; --feito
 
-
 pro o host jperpect.42.fr; --feito
 
 proteger as pasword; --feito
