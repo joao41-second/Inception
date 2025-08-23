@@ -11,13 +11,11 @@ exec "$@"
 
 cd ..
 wget https://wordpress.org/latest.tar.gz
-chown -R www-data:www-data /wordpress
-chmod -R 755 /wordpress
+chown -R www-data:www-data ./html
+chmod -R 755 ./html
 tar -xzf latest.tar.gz
-echo estou em "$pwd"
 cd ./html
 
-sleep 3
 echo $WP_DATABASE_PWD
 echo login int mariadb...
 if ! mysql -h mariadb -u $WP_DATABASE_USR -p$WP_DATABASE_PWD -e "USE $WP_DATABASE_NAME;" 2>/dev/null; then
@@ -26,20 +24,30 @@ if ! mysql -h mariadb -u $WP_DATABASE_USR -p$WP_DATABASE_PWD -e "USE $WP_DATABAS
 
     exit 1
 fi
-echo login na base de dados excutado 
+echo login to the databe was successful
 
-echo root the download
+echo start  download root files
 
-wp core download --allow-root
+if [ -d "wp-admin" ] && [ -d "wp-includes" ]; then
+	echo INFO: The core privios install
+else
+	echo INFO: Start instal core
+	wp core download --allow-root
+fi
 
 echo create the config wordpress...
 
+if [ -e "wp-config.php" ]; then 
+	echo "INFO: The file exit not config new file "
+else
+	echo "INFO:Create new file wp-config.php"
     wp config create \
         --dbname=$WP_DATABASE_NAME \
   	--dbuser=$WP_DATABASE_USR \
   	--dbpass=$WP_DATABASE_PWD \
         --dbhost=mariadb \
         --allow-root
+fi
 
 
 echo "Installing WordPress..."

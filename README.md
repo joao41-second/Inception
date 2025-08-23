@@ -27,6 +27,6 @@ cirirar .dockerignore em todos  os container;
 
 por secrets no git ignore;
 
-adicionar chek de erros no config da maria db
+adicionar chek de erros no config da maria db; --feito
 
-ver se o problea do loop e no login a base de dados 
+ver se o problea do loop e no login a base de dados --feito

@@ -11,9 +11,6 @@ exec "$@"
 mkdir -p /var/run/mysqld
 chown -R mysql:mysql /var/run/mysqld
 chown -R mysql:mysql /var/lib/mysqlJ
-echo "db_var \n\n"
-ls /run/secrets/
-
 	
 echo "start db"
 
@@ -36,9 +33,10 @@ DROP DATABASE IF EXISTS test;
 DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
 FLUSH PRIVILEGES;
 EOF
-  
-cat $tempfile 
+
 mysqld --user=mysql --bootstrap --verbose=0 --skip-networking=0 < "$tempfile"
+
+echo "end config db"
 
 for secret in /run/secrets/*; do
   if [ -f "$secret" ]; then
