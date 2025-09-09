@@ -10,19 +10,20 @@ set +a
 exec "$@"
 
 cd ..
-wget https://wordpress.org/latest.tar.gz
+
+curl -I https://wordpress.org/latest.tar.gz
 chown -R www-data:www-data ./html
 chmod -R 755 ./html
 tar -xzf latest.tar.gz
 cd ./html
 
-echo $WP_DATABASE_PWD
+sleep 3
 echo login int mariadb...
 if ! mysql -h mariadb -u $WP_DATABASE_USR -p$WP_DATABASE_PWD -e "USE $WP_DATABASE_NAME;" 2>/dev/null; then
    
     echo "ERROR: Database $WP_DATABASE_NAME without access!"
 
-    exit 1
+    exit 0
 fi
 echo login to the databe was successful
 

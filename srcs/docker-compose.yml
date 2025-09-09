@@ -7,7 +7,7 @@ services:
       - config_db
       - config_db_root
     volumes:
-      - /home/$USER/data/wordpress/:/var/www/html
+      - wordpress:/var/www/html
     ports:
       - 443:443
     networks:
@@ -25,7 +25,7 @@ services:
     env_file:
       - .env  
     volumes:
-      - /home/$USER/data/lib/:/var/lib/mysql
+      - mysql:/var/lib/mysql
     networks:
       - inception
     restart: unless-stopped
@@ -37,14 +37,30 @@ services:
       - config_db
       - config_db_root
     volumes:
-      - /home/$USER/data/wordpress:/var/www/html
+      - wordpress:/var/www/html
     env_file:
       - .env  
     networks:
       - inception
     depends_on:
-          - mariadb
+          - mariadb 
+    dns:
+    - 8.8.8.8
+    - 8.8.4.4
     restart: unless-stopped
+volumes:
+  mysql:
+    driver: local 
+    driver_opts: 
+      type: none
+      o: bind
+      device: /home/$USER/data/lib/
+  wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/$USER/data/wordpress 
 networks:
   inception:
     driver: bridge
@@ -56,3 +72,5 @@ secrets:
     file: ../secrets/db_password.txt
   config_db_root:
     file: ../secrets/db_rootpassword.txt
+
+

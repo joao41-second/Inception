@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM debian:unstable-slim
+FROM debian:bullseye
 WORKDIR /home
 RUN apt-get update
 RUN apt-get -y install nginx

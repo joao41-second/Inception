@@ -1,4 +1,7 @@
 all:
+	mkdir  /home/${USER}/data/
+	mkdir  /home/${USER}/data/wordpress
+	mkdir  /home/${USER}/data/lib
 	cd ./srcs/  && docker compose up --build 
 
 r_maria:
