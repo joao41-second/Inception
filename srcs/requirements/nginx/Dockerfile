@@ -13,6 +13,6 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 COPY ./tools/default /etc/nginx/sites-available/default
 RUN chown -R www-data:www-data /var/www/html/
 RUN chmod -R 755 /var/www/html/
-CMD ["ls","/etc/ssl/private"]
-CMD ["nginx","-g","daemon off;"]
+
+ENTRYPOINT ["nginx","-g","daemon off;"]
 EXPOSE 443
